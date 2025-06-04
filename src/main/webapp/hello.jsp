@@ -5,7 +5,7 @@
   Time: 11:37
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -13,6 +13,19 @@
     <title>Hello World JSP</title>
 </head>
 <body>
-<h2>Hello World <c:out value="${message}" /></h2>
+
+    <h1>Formulaire Saisie Nom</h1>
+
+    <form action="hello" method="POST">
+        <label for="name">Votre nom :</label>
+        <input type="text" name="name" id="name">
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <% String name = request.getParameter("name"); %>
+    <% if (name != null && !name.isEmpty()) { %>
+    <h2>Hello <c:out value="${message}" /></h2>
+    <% } %>
+
 </body>
 </html>
