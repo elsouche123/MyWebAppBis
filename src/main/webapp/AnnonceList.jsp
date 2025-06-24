@@ -52,9 +52,14 @@
                     <td>${annonce.mail}</td>
                     <td>${annonce.date}</td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/annonce/update?id=${annonce.id}" class="btn btn-warning btn-sm">Modifier</a>
+                        <a href="${pageContext.request.contextPath}/annonce/update?id=${annonce.id}" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil"></i> Modifier
+                        </a>
                         <a href="${pageContext.request.contextPath}/annonce/delete?id=${annonce.id}" class="btn btn-danger btn-sm"
-                           onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Supprimer</a>
+                           onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
+                            <i class="bi bi-trash"></i> Supprimer
+                        </a>
+
                     </td>
                 </tr>
             </c:forEach>

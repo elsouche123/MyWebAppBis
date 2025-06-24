@@ -30,7 +30,8 @@ public class AnnonceDelete extends HttpServlet {
             if (annonce != null) {
                 boolean success = dao.delete(annonce);
                 if (success) {
-                    resp.sendRedirect(req.getContextPath() + "/annonce/liste?message=Suppression réussie");
+                    req.getSession().setAttribute("message", "Suppression réussie");
+                    resp.sendRedirect(req.getContextPath() + "/annonce/liste");
                 } else {
                     req.setAttribute("error", "Erreur lors de la suppression !");
                     resp.sendRedirect(req.getContextPath() + "/annonce/liste?error=Erreur suppression");

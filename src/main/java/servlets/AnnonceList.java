@@ -19,7 +19,6 @@ public class AnnonceList extends HttpServlet {
         try {
             AnnonceDAO dao = new AnnonceDAO();
             List<Annonce> annonces = dao.list();
-
             req.setAttribute("annonces", annonces);
             req.getRequestDispatcher("/AnnonceList.jsp").forward(req, resp);
 

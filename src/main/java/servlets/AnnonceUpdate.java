@@ -19,6 +19,7 @@ public class AnnonceUpdate extends HttpServlet {
         try {
             String idStr = req.getParameter("id");
             if (idStr == null || idStr.isEmpty()) {
+                req.getSession().setAttribute("error", "Identifiant manquant !");
                 resp.sendRedirect(req.getContextPath() + "/annonce/liste");
                 return;
             }
@@ -31,13 +32,13 @@ public class AnnonceUpdate extends HttpServlet {
                 req.setAttribute("annonce", annonce);
                 req.getRequestDispatcher("/AnnonceUpdate.jsp").forward(req, resp);
             } else {
-                req.setAttribute("message", "Annonce introuvable !");
+                req.getSession().setAttribute("error", "Annonce introuvable !");
                 resp.sendRedirect(req.getContextPath() + "/annonce/liste");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            req.setAttribute("message", "Erreur : " + e.getMessage());
+            req.getSession().setAttribute("error", "Erreur : " + e.getMessage());
             resp.sendRedirect(req.getContextPath() + "/annonce/liste");
         }
     }
@@ -53,7 +54,8 @@ public class AnnonceUpdate extends HttpServlet {
 
             if (title.isEmpty() || description.isEmpty() || adress.isEmpty() || mail.isEmpty()) {
                 req.setAttribute("message", "Tous les champs sont obligatoires !");
-                doGet(req, resp);
+                req.setAttribute("annonce", new Annonce(id, title, description, adress, mail, new java.sql.Timestamp(System.currentTimeMillis())));
+                req.getRequestDispatcher("/AnnonceUpdate.jsp").forward(req, resp);
                 return;
             }
 
@@ -61,6 +63,7 @@ public class AnnonceUpdate extends HttpServlet {
             AnnonceDAO dao = new AnnonceDAO();
 
             if (dao.update(annonce)) {
+                req.getSession().setAttribute("message", "Annonce mise à jour avec succès !");
                 resp.sendRedirect(req.getContextPath() + "/annonce/liste");
             } else {
                 req.setAttribute("message", "Erreur lors de la mise à jour !");

@@ -50,6 +50,7 @@ public class AnnonceAdd extends HttpServlet {
             boolean success = dao.create(annonce);
 
             if (success) {
+                req.getSession().setAttribute("message", "Annonce ajoutée avec succès !");
                 resp.sendRedirect(req.getContextPath() + "/annonce/liste");
             } else {
                 req.setAttribute("message", "Erreur lors de l'enregistrement !");
