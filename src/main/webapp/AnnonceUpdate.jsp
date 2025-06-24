@@ -19,6 +19,17 @@
     <div class="card-body">
       <h3 class="card-title mb-4">Mise à jour de l'annonce</h3>
 
+      <!-- Gestion des messages -->
+      <c:if test="${not empty sessionScope.message}">
+        <div class="alert alert-success">${sessionScope.message}</div>
+        <c:remove var="message" scope="session"/>
+      </c:if>
+
+      <c:if test="${not empty sessionScope.error}">
+        <div class="alert alert-danger">${sessionScope.error}</div>
+        <c:remove var="error" scope="session"/>
+      </c:if>
+
       <c:if test="${not empty message}">
         <div class="alert alert-warning">${message}</div>
       </c:if>
@@ -27,7 +38,7 @@
         <input type="hidden" name="id" value="${annonce.id}">
 
         <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
+          <label for="title" class="form-label">Titre</label>
           <input type="text" class="form-control" id="title" name="title" value="${annonce.title}" required>
         </div>
 
@@ -37,17 +48,17 @@
         </div>
 
         <div class="mb-3">
-          <label for="adress" class="form-label">Adress</label>
+          <label for="adress" class="form-label">Adresse</label>
           <input type="text" class="form-control" id="adress" name="adress" value="${annonce.adress}" required>
         </div>
 
         <div class="mb-3">
-          <label for="mail" class="form-label">Mail</label>
+          <label for="mail" class="form-label">Email</label>
           <input type="email" class="form-control" id="mail" name="mail" value="${annonce.mail}" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
-        <a  href="${pageContext.request.contextPath}/annonce/liste" class="btn btn-secondary">Retour à la liste</a>
+        <a href="${pageContext.request.contextPath}/annonce/liste" class="btn btn-secondary">Retour à la liste</a>
       </form>
     </div>
   </div>

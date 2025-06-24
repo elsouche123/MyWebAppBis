@@ -19,6 +19,7 @@ public class AnnonceDelete extends HttpServlet {
         try {
             String idStr = req.getParameter("id");
             if (idStr == null || idStr.isEmpty()) {
+                req.getSession().setAttribute("error", "Identifiant manquant !");
                 resp.sendRedirect(req.getContextPath() + "/annonce/liste");
                 return;
             }
@@ -30,22 +31,19 @@ public class AnnonceDelete extends HttpServlet {
             if (annonce != null) {
                 boolean success = dao.delete(annonce);
                 if (success) {
-                    req.getSession().setAttribute("message", "Suppression réussie");
-                    resp.sendRedirect(req.getContextPath() + "/annonce/liste");
+                    req.getSession().setAttribute("message", "Annonce supprimée avec succès !");
                 } else {
-                    req.setAttribute("error", "Erreur lors de la suppression !");
-                    resp.sendRedirect(req.getContextPath() + "/annonce/liste?error=Erreur suppression");
+                    req.getSession().setAttribute("error", "Erreur lors de la suppression !");
                 }
             } else {
-                req.setAttribute("error", "Annonce introuvable !");
-                resp.sendRedirect(req.getContextPath() + "/annonce/liste?error=Erreur suppression");
+                req.getSession().setAttribute("error", "Annonce introuvable !");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            req.setAttribute("error", "Erreur : " + e.getMessage());
-            resp.sendRedirect(req.getContextPath() + "/annonce/liste?error=Erreur suppression");
+            req.getSession().setAttribute("error", "Exception : " + e.getMessage());
         }
-    }
 
+        resp.sendRedirect(req.getContextPath() + "/annonce/liste");
+    }
 }

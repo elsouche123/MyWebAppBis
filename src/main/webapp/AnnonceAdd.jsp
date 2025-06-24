@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Ajouter une annonce</title>
@@ -11,25 +12,40 @@
         <div class="card-body">
             <h3 class="card-title mb-4">Ajouter une annonce</h3>
 
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger">${error}</div>
+            </c:if>
+
+            <c:if test="${not empty message}">
+                <div class="alert alert-success">${message}</div>
+            </c:if>
+
             <form method="post" action="${pageContext.request.contextPath}/annonce/add">
-            <div class="mb-3">
+                <div class="mb-3">
                     <label for="title" class="form-label">Titre</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Entrez le titre" required>
+                    <input type="text" class="form-control" id="title" name="title"
+                           placeholder="Entrez le titre"
+                           value="${param.title}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Entrez la description" required></textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3"
+                              placeholder="Entrez la description" required>${param.description}</textarea>
                 </div>
 
                 <div class="mb-3">
                     <label for="adress" class="form-label">Adresse</label>
-                    <input type="text" class="form-control" id="adress" name="adress" placeholder="Entrez l'adresse" required>
+                    <input type="text" class="form-control" id="adress" name="adress"
+                           placeholder="Entrez l'adresse"
+                           value="${param.adress}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="mail" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="mail" name="mail" placeholder="Entrez l'email" required>
+                    <input type="email" class="form-control" id="mail" name="mail"
+                           placeholder="Entrez l'email"
+                           value="${param.mail}" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Ajouter</button>

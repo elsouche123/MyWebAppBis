@@ -20,11 +20,22 @@ public class AnnonceList extends HttpServlet {
             AnnonceDAO dao = new AnnonceDAO();
             List<Annonce> annonces = dao.list();
             req.setAttribute("annonces", annonces);
+
+            if (req.getSession().getAttribute("message") != null) {
+                req.setAttribute("message", req.getSession().getAttribute("message"));
+                req.getSession().removeAttribute("message");
+            }
+
+            if (req.getSession().getAttribute("error") != null) {
+                req.setAttribute("error", req.getSession().getAttribute("error"));
+                req.getSession().removeAttribute("error");
+            }
+
             req.getRequestDispatcher("/AnnonceList.jsp").forward(req, resp);
 
         } catch (Exception e) {
             e.printStackTrace();
-            req.setAttribute("message", "Erreur : " + e.getMessage());
+            req.setAttribute("error", "Erreur : " + e.getMessage());
             req.getRequestDispatcher("/AnnonceList.jsp").forward(req, resp);
         }
     }

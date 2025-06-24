@@ -52,29 +52,35 @@ public class AnnonceUpdate extends HttpServlet {
             String adress = req.getParameter("adress");
             String mail = req.getParameter("mail");
 
-            if (title.isEmpty() || description.isEmpty() || adress.isEmpty() || mail.isEmpty()) {
-                req.setAttribute("message", "Tous les champs sont obligatoires !");
-                req.setAttribute("annonce", new Annonce(id, title, description, adress, mail, new java.sql.Timestamp(System.currentTimeMillis())));
+            Annonce annonce = new Annonce(id, title, description, adress, mail, new java.sql.Timestamp(System.currentTimeMillis()));
+
+            if (title == null || title.isEmpty() ||
+                    description == null || description.isEmpty() ||
+                    adress == null || adress.isEmpty() ||
+                    mail == null || mail.isEmpty()) {
+
+                req.setAttribute("error", "Tous les champs sont obligatoires !");
+                req.setAttribute("annonce", annonce);
                 req.getRequestDispatcher("/AnnonceUpdate.jsp").forward(req, resp);
                 return;
             }
 
-            Annonce annonce = new Annonce(id, title, description, adress, mail, new java.sql.Timestamp(System.currentTimeMillis()));
             AnnonceDAO dao = new AnnonceDAO();
 
             if (dao.update(annonce)) {
                 req.getSession().setAttribute("message", "Annonce mise à jour avec succès !");
                 resp.sendRedirect(req.getContextPath() + "/annonce/liste");
             } else {
-                req.setAttribute("message", "Erreur lors de la mise à jour !");
+                req.setAttribute("error", "Erreur lors de la mise à jour !");
                 req.setAttribute("annonce", annonce);
                 req.getRequestDispatcher("/AnnonceUpdate.jsp").forward(req, resp);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            req.setAttribute("message", "Erreur : " + e.getMessage());
+            req.setAttribute("error", "Erreur : " + e.getMessage());
             req.getRequestDispatcher("/AnnonceUpdate.jsp").forward(req, resp);
         }
     }
 }
+

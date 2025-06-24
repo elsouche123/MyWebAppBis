@@ -11,21 +11,32 @@
 <html>
 <head>
     <title>Hello World JSP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-<h1>Formulaire Saisie Nom</h1>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h1 class="card-title mb-4">Formulaire Saisie Nom</h1>
 
-<form  method="post" action="hello">
-    <label for="name">Votre nom :</label>
-    <input type="text" name="name" id="name">
-    <button type="submit">Envoyer</button>
-</form>
+            <form method="post" action="${pageContext.request.contextPath}/hello">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Votre nom :</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Entrez votre nom" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+            </form>
 
-<% String name = request.getParameter("name"); %>
-<% if (name != null && !name.isEmpty()) { %>
-<h2>Hello the World <%= name %></h2>
-<% } %>
+            <c:if test="${not empty name}">
+                <div class="alert alert-success mt-3">
+                    Hello the World ${name}
+                </div>
+            </c:if>
+        </div>
+    </div>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

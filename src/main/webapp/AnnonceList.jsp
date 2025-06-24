@@ -19,12 +19,14 @@
 <div class="container mt-5">
     <h3 class="mb-4">Liste des annonces</h3>
 
-    <c:if test="${not empty message}">
-        <div class="alert alert-success">${message}</div>
+    <c:if test="${not empty sessionScope.message}">
+        <div class="alert alert-success">${sessionScope.message}</div>
+        <c:remove var="message" scope="session"/>
     </c:if>
 
-    <c:if test="${not empty error}">
-        <div class="alert alert-danger">${error}</div>
+    <c:if test="${not empty sessionScope.error}">
+        <div class="alert alert-danger">${sessionScope.error}</div>
+        <c:remove var="error" scope="session"/>
     </c:if>
 
     <c:if test="${empty annonces}">
@@ -59,7 +61,6 @@
                            onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
                             <i class="bi bi-trash"></i> Supprimer
                         </a>
-
                     </td>
                 </tr>
             </c:forEach>
