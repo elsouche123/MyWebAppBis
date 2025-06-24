@@ -1,6 +1,6 @@
 package servlets;
 
-import impl.AnnonceDAOImpl;
+import dao.AnnonceDAO;
 import models.Annonce;
 
 import jakarta.servlet.ServletException;
@@ -24,7 +24,7 @@ public class AnnonceUpdate extends HttpServlet {
             }
 
             int id = Integer.parseInt(idStr);
-            AnnonceDAOImpl dao = new AnnonceDAOImpl();
+            AnnonceDAO dao = new AnnonceDAO();
             Annonce annonce = dao.find(id);
 
             if (annonce != null) {
@@ -58,7 +58,7 @@ public class AnnonceUpdate extends HttpServlet {
             }
 
             Annonce annonce = new Annonce(id, title, description, adress, mail, new java.sql.Timestamp(System.currentTimeMillis()));
-            AnnonceDAOImpl dao = new AnnonceDAOImpl();
+            AnnonceDAO dao = new AnnonceDAO();
 
             if (dao.update(annonce)) {
                 resp.sendRedirect(req.getContextPath() + "/annonce/liste");

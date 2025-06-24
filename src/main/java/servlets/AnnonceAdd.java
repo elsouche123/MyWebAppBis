@@ -1,7 +1,6 @@
 package servlets;
 
-
-import impl.AnnonceDAOImpl;
+import dao.AnnonceDAO;
 import models.Annonce;
 
 import jakarta.servlet.ServletException;
@@ -47,7 +46,7 @@ public class AnnonceAdd extends HttpServlet {
         );
 
         try {
-            AnnonceDAOImpl dao = new AnnonceDAOImpl();
+            AnnonceDAO dao = new AnnonceDAO();
             boolean success = dao.create(annonce);
 
             if (success) {

@@ -1,6 +1,6 @@
 package servlets;
 
-import impl.AnnonceDAOImpl;
+import dao.AnnonceDAO;
 import models.Annonce;
 
 import jakarta.servlet.ServletException;
@@ -17,7 +17,7 @@ public class AnnonceList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            AnnonceDAOImpl dao = new AnnonceDAOImpl();
+            AnnonceDAO dao = new AnnonceDAO();
             List<Annonce> annonces = dao.list();
 
             req.setAttribute("annonces", annonces);
