@@ -28,6 +28,16 @@ public class AnnonceAdd extends HttpServlet {
         String adress = req.getParameter("adress");
         String mail = req.getParameter("mail");
 
+        if (title == null || title.isEmpty() ||
+                description == null || description.isEmpty() ||
+                adress == null || adress.isEmpty() ||
+                mail == null || mail.isEmpty()) {
+
+            req.setAttribute("message", "Tous les champs sont obligatoires !");
+            req.getRequestDispatcher("/AnnonceAdd.jsp").forward(req, resp);
+            return;
+        }
+
         Annonce annonce = new Annonce(
                 title,
                 description,
@@ -53,4 +63,7 @@ public class AnnonceAdd extends HttpServlet {
             req.getRequestDispatcher("/AnnonceAdd.jsp").forward(req, resp);
         }
     }
+
+
+
 }
