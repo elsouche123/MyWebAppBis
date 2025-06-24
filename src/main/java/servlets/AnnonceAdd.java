@@ -1,5 +1,9 @@
 package servlets;
 
+
+import impl.AnnonceDAOImpl;
+import models.Annonce;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,9 +11,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 @WebServlet("/addAnnonce")
 public class AnnonceAdd extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/AnnonceAdd.jsp").forward(req, resp);
@@ -22,11 +28,29 @@ public class AnnonceAdd extends HttpServlet {
         String adress = req.getParameter("adress");
         String mail = req.getParameter("mail");
 
-        resp.setContentType("text/html");
-        resp.getWriter().println("<h1>Annonce enregistrée !</h1>");
-        resp.getWriter().println("<p>Titre : " + title + "</p>");
-        resp.getWriter().println("<p>Description : " + description + "</p>");
-        resp.getWriter().println("<p>Adresse : " + adress + "</p>");
-        resp.getWriter().println("<p>Email : " + mail + "</p>");
+        Annonce annonce = new Annonce(
+                title,
+                description,
+                adress,
+                mail,
+                new Timestamp(System.currentTimeMillis())
+        );
+
+        try {
+            AnnonceDAOImpl dao = new AnnonceDAOImpl();
+            boolean success = dao.create(annonce);
+
+            if (success) {
+                resp.sendRedirect(req.getContextPath() + "/annonce/liste");
+            } else {
+                req.setAttribute("message", "Erreur lors de l'enregistrement !");
+                req.getRequestDispatcher("/AnnonceAdd.jsp").forward(req, resp);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("message", "Exception : " + e.getMessage());
+            req.getRequestDispatcher("/AnnonceAdd.jsp").forward(req, resp);
+        }
     }
 }
