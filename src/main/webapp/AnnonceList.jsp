@@ -57,11 +57,15 @@
                         <a href="${pageContext.request.contextPath}/annonce/update?id=${annonce.id}" class="btn btn-warning btn-sm">
                             <i class="bi bi-pencil"></i> Modifier
                         </a>
-                        <a href="${pageContext.request.contextPath}/annonce/delete?id=${annonce.id}" class="btn btn-danger btn-sm"
-                           onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
-                            <i class="bi bi-trash"></i> Supprimer
-                        </a>
+                        <form method="post" action="${pageContext.request.contextPath}/annonce/delete" style="display:inline;">
+                            <input type="hidden" name="id" value="${annonce.id}">
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
+                                <i class="bi bi-trash"></i> Supprimer
+                            </button>
+                        </form>
                     </td>
+
                 </tr>
             </c:forEach>
             </tbody>

@@ -30,8 +30,8 @@
         <c:remove var="error" scope="session"/>
       </c:if>
 
-      <c:if test="${not empty message}">
-        <div class="alert alert-warning">${message}</div>
+      <c:if test="${not empty error}">
+        <div class="alert alert-danger">${error}</div>
       </c:if>
 
       <form method="post" action="${pageContext.request.contextPath}/annonce/update">
@@ -39,22 +39,28 @@
 
         <div class="mb-3">
           <label for="title" class="form-label">Titre</label>
-          <input type="text" class="form-control" id="title" name="title" value="${annonce.title}" required>
+          <input type="text" class="form-control" id="title" name="title"
+                 placeholder="Entrez le titre"
+                 value="${annonce != null && annonce.title != null ? annonce.title : param.title}" required>
         </div>
 
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
-          <textarea class="form-control" id="description" name="description" rows="3" required>${annonce.description}</textarea>
+          <textarea class="form-control" id="description" name="description" rows="3" required>${annonce != null && annonce.description != null ? annonce.description : param.description}</textarea>
         </div>
 
         <div class="mb-3">
           <label for="adress" class="form-label">Adresse</label>
-          <input type="text" class="form-control" id="adress" name="adress" value="${annonce.adress}" required>
+          <input type="text" class="form-control" id="adress" name="adress"
+                 placeholder="Entrez l'adresse"
+                 value="${annonce != null && annonce.adress != null ? annonce.adress : param.adress}" required>
         </div>
 
         <div class="mb-3">
           <label for="mail" class="form-label">Email</label>
-          <input type="email" class="form-control" id="mail" name="mail" value="${annonce.mail}" required>
+          <input type="email" class="form-control" id="mail" name="mail"
+                 placeholder="Entrez l'email"
+                 value="${annonce != null && annonce.mail != null ? annonce.mail : param.mail}" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
