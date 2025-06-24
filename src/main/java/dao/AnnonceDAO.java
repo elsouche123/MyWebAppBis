@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AnnonceDAO extends DAO<Annonce> {
 
-    public AnnonceDAO() throws SQLException, ClassNotFoundException {
+    public AnnonceDAO() throws ClassNotFoundException {
         super(ConnectionDB.getInstance());
     }
 

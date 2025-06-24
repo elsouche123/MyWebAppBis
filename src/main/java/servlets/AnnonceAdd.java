@@ -62,7 +62,4 @@ public class AnnonceAdd extends HttpServlet {
             req.getRequestDispatcher("/AnnonceAdd.jsp").forward(req, resp);
         }
     }
-
-
-
 }
