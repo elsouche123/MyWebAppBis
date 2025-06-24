@@ -33,6 +33,10 @@ public class AnnonceAdd extends HttpServlet {
                 mail == null || mail.isEmpty()) {
 
             req.setAttribute("error", "Tous les champs sont obligatoires !");
+            req.setAttribute("title", title);
+            req.setAttribute("description", description);
+            req.setAttribute("adress", adress);
+            req.setAttribute("mail", mail);
             req.getRequestDispatcher("/AnnonceAdd.jsp").forward(req, resp);
             return;
         }
@@ -54,12 +58,20 @@ public class AnnonceAdd extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + "/annonce/liste");
             } else {
                 req.setAttribute("error", "Erreur lors de l'enregistrement !");
+                req.setAttribute("title", title);
+                req.setAttribute("description", description);
+                req.setAttribute("adress", adress);
+                req.setAttribute("mail", mail);
                 req.getRequestDispatcher("/AnnonceAdd.jsp").forward(req, resp);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("error", "Exception : " + e.getMessage());
+            req.setAttribute("title", title);
+            req.setAttribute("description", description);
+            req.setAttribute("adress", adress);
+            req.setAttribute("mail", mail);
             req.getRequestDispatcher("/AnnonceAdd.jsp").forward(req, resp);
         }
     }

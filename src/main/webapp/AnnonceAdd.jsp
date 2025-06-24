@@ -16,8 +16,9 @@
                 <div class="alert alert-danger">${error}</div>
             </c:if>
 
-            <c:if test="${not empty message}">
-                <div class="alert alert-success">${message}</div>
+            <c:if test="${not empty sessionScope.message}">
+                <div class="alert alert-success">${sessionScope.message}</div>
+                <c:remove var="message" scope="session"/>
             </c:if>
 
             <form method="post" action="${pageContext.request.contextPath}/annonce/add">
@@ -25,27 +26,27 @@
                     <label for="title" class="form-label">Titre</label>
                     <input type="text" class="form-control" id="title" name="title"
                            placeholder="Entrez le titre"
-                           value="${param.title}" required>
+                           value="${title != null ? title : param.title}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" id="description" name="description" rows="3"
-                              placeholder="Entrez la description" required>${param.description}</textarea>
+                              placeholder="Entrez la description" required>${description != null ? description : param.description}</textarea>
                 </div>
 
                 <div class="mb-3">
                     <label for="adress" class="form-label">Adresse</label>
                     <input type="text" class="form-control" id="adress" name="adress"
                            placeholder="Entrez l'adresse"
-                           value="${param.adress}" required>
+                           value="${adress != null ? adress : param.adress}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="mail" class="form-label">Email</label>
                     <input type="email" class="form-control" id="mail" name="mail"
                            placeholder="Entrez l'email"
-                           value="${param.mail}" required>
+                           value="${mail != null ? mail : param.mail}" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Ajouter</button>
