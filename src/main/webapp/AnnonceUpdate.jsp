@@ -19,13 +19,11 @@
     <div class="card-body">
       <h3 class="card-title mb-4">Mise à jour de l'annonce</h3>
 
-      <!-- Affichage d'un éventuel message d'erreur -->
       <c:if test="${not empty message}">
         <div class="alert alert-warning">${message}</div>
       </c:if>
 
-      <!-- Formulaire pré-rempli -->
-      <form method="post" action="AnnonceUpdate">
+      <form method="post" action="${pageContext.request.contextPath}/annonce/update">
         <input type="hidden" name="id" value="${annonce.id}">
 
         <div class="mb-3">

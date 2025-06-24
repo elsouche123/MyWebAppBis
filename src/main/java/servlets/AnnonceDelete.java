@@ -33,17 +33,17 @@ public class AnnonceDelete extends HttpServlet {
                     resp.sendRedirect(req.getContextPath() + "/annonce/liste?message=Suppression réussie");
                 } else {
                     req.setAttribute("error", "Erreur lors de la suppression !");
-                    req.getRequestDispatcher("/AnnonceList.jsp").forward(req, resp);
+                    resp.sendRedirect(req.getContextPath() + "/annonce/liste?error=Erreur suppression");
                 }
             } else {
                 req.setAttribute("error", "Annonce introuvable !");
-                req.getRequestDispatcher("/AnnonceList.jsp").forward(req, resp);
+                resp.sendRedirect(req.getContextPath() + "/annonce/liste?error=Erreur suppression");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("error", "Erreur : " + e.getMessage());
-            req.getRequestDispatcher("/AnnonceList.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/annonce/liste?error=Erreur suppression");
         }
     }
 
