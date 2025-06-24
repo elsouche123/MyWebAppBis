@@ -12,11 +12,11 @@ public class ConnectionDB {
     private static Connection connect;
 
     /**
-     * Constructeur privé pour empêcher l'instanciation externe
+     * Constructeur privé
+     * @throws ClassNotFoundException
      */
     private ConnectionDB() throws ClassNotFoundException {
         try {
-            // Charger le driver MySQL (optionnel avec JDBC 4+, mais bien de l'expliciter)
             Class.forName("com.mysql.cj.jdbc.Driver");
             connect = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
@@ -25,7 +25,10 @@ public class ConnectionDB {
     }
 
     /**
-     * Retourne l'instance unique de connexion
+     * Methode qui va nous retourner notre instance
+     * et la creer si elle n'existe pas...
+     * @return
+     * @throws ClassNotFoundException
      */
     public static Connection getInstance() throws ClassNotFoundException {
         if (connect == null) {
